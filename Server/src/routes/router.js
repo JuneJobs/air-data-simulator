@@ -1,11 +1,11 @@
 'use strict';
 
 //Import request manager module
-const LlRequest = require("../lib/ISRequest");
+const LlRequest = require("../lib/ISRequest"),
+      config = require('../../config/default.json'), 
+      Redis = require("ioredis"),
+      redisCli = new Redis(config.redisPort, config.redisUrl); //Air Redis Node 연결
 
-const Redis = require("ioredis");
-//let redis = new Redis(63791, "dev.somnium.me");
-let redisCli = new Redis(6379, "13.125.132.98");
 let resCode = {
     SUCCESS: 0,
     ERROR: 1,
@@ -37,4 +37,37 @@ router.post("/searchKeyList", (req, res) => {
             res.send(response);
         }
     });
+});
+
+
+router.post("/simulator", (req,res) => {
+        params = req.body;
+    //wmac gps 매핑 
+    let wmac = params.wmac,
+        key = `sim:gps:info:${wmac}`,
+        gps = params.gps,
+        response = {};
+    switch (params.queryType) {
+        case 'POST':
+            redisCli.set(key, gps);
+            response.resCode = 0;
+            res.send(response);
+            break;
+        case 'GET':
+            redisCli.get(key).then((result)=>{
+                if(result === null) {
+                    response.resCode = 1;
+                } else {
+                    response.resCode = 0;
+                    response.gps = result;
+                }
+                res.send(response);
+            })
+            break;
+        case 'DELETE':
+            redisCli.del(key);
+            response.resCode = 0;
+            res.send(response);
+            break;
+    }
 });
