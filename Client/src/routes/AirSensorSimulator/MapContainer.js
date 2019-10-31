@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { Map, 
          GoogleApiWrapper, 
          Marker } from 'google-maps-react';
-import air_sensor from '../../image/air_sensor.png';
+import air_sensor from '../../images/air_sensor.png';
 import { amber } from '@material-ui/core/colors';
 const mapStyles = {
      width: '44%',
