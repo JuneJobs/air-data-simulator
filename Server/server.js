@@ -17,7 +17,6 @@ global.path = __dirname;
 app.use(bodyParser.json()); // support json encoded bodies
 app.use("/", router);
 
-require('./src/routes/router');
 
 
 // 설명 참고 https://m.blog.naver.com/PostView.nhn?blogId=termy826&logNo=20208750146&proxyReferer=https%3A%2F%2Fwww.google.com%2F
@@ -32,6 +31,8 @@ app.listen(config.webServicePort, function () {
     console.log(`server running on ${config.webServicePort}`);
     setInterval(monitor, 3600000);
 });
+
+require('./src/routes/router');
 
 let make_simulator = (simulator_wmac, cb) => {
     let ps = spawn('node', [`./Server/src/deamon/runner.js`, simulator_wmac]);
