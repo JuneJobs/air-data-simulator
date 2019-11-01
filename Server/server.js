@@ -20,20 +20,21 @@ app.use("/", router);
 
 
 // 설명 참고 https://m.blog.naver.com/PostView.nhn?blogId=termy826&logNo=20208750146&proxyReferer=https%3A%2F%2Fwww.google.com%2F
+
+
+//Server runner
+app.listen(config.webServicePort, function () {
+    console.log(`server running on ${config.webServicePort}`);
+    setInterval(monitor, 360000);
+});
+
+require('./src/routes/router');
+
 const childPool = [];
 
 function monitor() {
     console.log(`${childPool.length}개의 시뮬레이터 동작중`);
 }
-
-//Server runner
-app.listen(config.webServicePort, function () {
-    console.log(`server running on ${config.webServicePort}`);
-    setInterval(monitor, 3600000);
-});
-
-require('./src/routes/router');
-
 let make_simulator = (simulator_wmac, cb) => {
     let ps = spawn('node', [`./Server/src/deamon/runner.js`, simulator_wmac]);
     ps.stdout.on('data', (data) => {
@@ -98,10 +99,10 @@ let kill_simulator = (simulator_wmac, cb) => {
                 obj_simulator.simulator.kill('SIGUSR2');
                 childPool.splice(idx, 1);
             });
-            return (obj_simulator.simulator_wmac === simulator_wmac);
+            cb(obj_simulator.simulator_wmac == simulator_wmac);
+            return;
         }
     });
-    cb(result);   
 }
 
 router.post('/s_simulator_control', (req, res) => {
@@ -110,6 +111,7 @@ router.post('/s_simulator_control', (req, res) => {
         case 'run':
             simulator_wmac = req.body.simulator_wmac;
             make_simulator(req.body.simulator_wmac, (result)=> {
+                console.log(`${childPool.length}개의 시뮬레이터 동작중`);
                 res.send({
                     res_code: 0
                 });
@@ -118,12 +120,14 @@ router.post('/s_simulator_control', (req, res) => {
         case 'kill':
             kill_simulator(req.body.simulator_wmac, (result)=> {
                 if(result) {
-                    console.log(`${simulator_wmac} was killed.`)
+                    console.log(`${childPool.length}개의 시뮬레이터 동작중`);
+                    console.log(`${req.body.simulator_wmac} was killed.`)
                     res.send({
                         res_code: 0
                     });
                 } else {
-                    console.log(`${simulator_wmac} doesn't exist.`)
+                    console.log(`${childPool.length}개의 시뮬레이터 동작중`);
+                    console.log(`${req.body.simulator_wmac} doesn't exist.`)
                     res.send({
                         res_code: 1
                     });
