@@ -4,7 +4,7 @@
         "acceessDenied": 0
     },
     "webServicePort": 60031,
-    "databaseApiUrl": "http://13.125.132.98:8001/d_api_v1_0",
-    "redisUrl": "13.125.132.98",
+    "databaseApiUrl": "http://db.somnium.me:60011/d_api_v1_0",
+    "redisUrl": "db.somnium.me",
     "redisPort": 6379
 }

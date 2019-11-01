@@ -2,7 +2,7 @@
 
 //Import request manager module
 const LlRequest = require("../lib/ISRequest"),
-      config = require('../../config/default.json'), 
+      config = require('../config/default.json'), 
       Redis = require("ioredis"),
       redisCli = new Redis(config.redisPort, config.redisUrl); //Air Redis Node 연결
 
@@ -41,9 +41,8 @@ router.post("/searchKeyList", (req, res) => {
 
 
 router.post("/simulator", (req,res) => {
-        params = req.body;
-    //wmac gps 매핑 
-    let wmac = params.wmac,
+    let params = req.body,
+        wmac = params.wmac,
         key = `sim:gps:info:${wmac}`,
         gps = params.gps,
         response = {};

@@ -1,7 +1,6 @@
 'use strict'
 
-const request = require('request'),
-      fs = require('fs');
+const request = require('request');
 
 class ISSimulator {
     constructor() {
@@ -237,3 +236,4 @@ class ISSimulator {
         });
     }
 }
+module.exports = ISSimulator;

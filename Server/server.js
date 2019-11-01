@@ -4,7 +4,10 @@
 const config = require('./src/config/default.json'),
       bodyParser = require("body-parser"),
       express = require("express"),
-      cors = require('cors');
+      Simulator =require('./src/lib/ISSimulator'),
+      spawn = require('child_process').spawn,
+      cors = require('cors'),
+      simulator = new Simulator();
 
 //Import msg module
 global.app = express();
@@ -26,12 +29,12 @@ function monitor() {
 
 //Server runner
 app.listen(config.webServicePort, function () {
-    console.log(`server running on ${_apiPort}`);
+    console.log(`server running on ${config.webServicePort}`);
     setInterval(monitor, 3600000);
 });
 
 let make_simulator = (simulator_wmac, cb) => {
-    let ps = spawn('node', [`./deamon/runner.js`, simulator_wmac]);
+    let ps = spawn('node', [`./Server/src/deamon/runner.js`, simulator_wmac]);
     ps.stdout.on('data', (data) => {
         data = '' + data;
         if(data.indexOf('ssn,') === 0) {
@@ -88,7 +91,7 @@ let kill_simulator = (simulator_wmac, cb) => {
         idx = -1;
     childPool.some((obj_simulator, index) => {
         if(obj_simulator.simulator_wmac === simulator_wmac) {
-            simulatorCon.run_dynamic_connection_deletion(obj_simulator.simulator_cid, (reslut)=> {
+            simulator.run_dynamic_connection_deletion(obj_simulator.simulator_cid, (reslut)=> {
                 result = true;
                 idx =index;
                 obj_simulator.simulator.kill('SIGUSR2');
@@ -105,15 +108,14 @@ router.post('/s_simulator_control', (req, res) => {
     switch(req.body.operation) {
         case 'run':
             simulator_wmac = req.body.simulator_wmac;
-            make_simulator(simulator_wmac, (result)=> {
+            make_simulator(req.body.simulator_wmac, (result)=> {
                 res.send({
                     res_code: 0
                 });
             });
             break;
         case 'kill':
-            simulator_wmac = req.body.simulator_wmac;
-            kill_simulator(simulator_wmac, (result)=> {
+            kill_simulator(req.body.simulator_wmac, (result)=> {
                 if(result) {
                     console.log(`${simulator_wmac} was killed.`)
                     res.send({

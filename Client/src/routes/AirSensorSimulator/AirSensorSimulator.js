@@ -23,8 +23,8 @@ const generator = new codeGenerator();
 //axios.defaults.baseURL = 'http://somnium.me:1234';
 // const simulator_server = 'http://localhost:8080';
 // const api_server = 'http://localhost:8001';
-const simulator_server = 'http://13.125.132.98:8080';
-const api_server = 'http://somnium.me:8001';
+const simulator_server = 'http://localhost:60031';
+const api_server = 'http://sv.somnium.me:60011';
 const axiosConfig = {
     headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -344,7 +344,7 @@ class AirSensorSimulator extends Component {
             "wmac": wmac,
             "gps": `${gps.lat},${gps.lng}`
         }
-        axios.defaults.baseURL = api_server;
+        axios.defaults.baseURL = simulator_server;
         let res = await axios.post("/simulator", params, axiosConfig);
         cb(res);
     }

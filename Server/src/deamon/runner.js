@@ -1,5 +1,5 @@
 'use strict'
-const SSimulator =require('./src/lib/ISSimulator'),
+const ISSimulator =require('../lib/ISSimulator'),
       simulator = new ISSimulator();
 
 
@@ -10,15 +10,16 @@ let wmac = '';
 let runner = () => {
     //get ssn
     wmac = process.argv[2];
+    //wmac = 'FF58B9EAFDB0';
     //set wmac
     simulator.wmac = wmac;
     simulator.run_sensor_identifier_request(wmac, (result)=> {
         if(result.payload.resultCode === 0) {        
-            console.log(`ssn,${process.argv[2]},${result.payload.ssn}`);
+            console.log(`ssn,${wmac},${result.payload.ssn}`);
             //connectionID 발급
             let ssn = result.payload.ssn;
             simulator.run_dynamic_connection_addition(ssn, (result)=> {
-                console.log(`cid,${process.argv[2]},${result.payload.cid}`);
+                console.log(`cid,${wmac},${result.payload.cid}`);
                 if(result.payload.resultCode === 0) {
                     cid = result.payload.cid;
                     simulator.cid = cid;
@@ -26,7 +27,7 @@ let runner = () => {
                 }
             });
         } else {
-            console.log(`err,${process.argv[2]}`);
+            console.log(`err,${wmac}`);
         }
     });
 }
