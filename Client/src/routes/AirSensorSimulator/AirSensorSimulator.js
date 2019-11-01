@@ -185,7 +185,7 @@ class AirSensorSimulator extends Component {
                     "queryType": "DELETE",
                     "wmac": e.data.wmac
                 };
-                axios.defaults.baseURL = api_server;
+                axios.defaults.baseURL = simulator_server;
                 let res = await axios.post("/simulator", params, axiosConfig);
                 this.run_sign_in((conn)=> {
                     this.run_administrator_sensor_deregistration(conn.usn, conn.nsc, e.data.wmac, (result)=> {
