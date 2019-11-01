@@ -78,7 +78,7 @@ class AirSensorSimulator extends Component {
         this.gridOpt = {
             columnDefs : [{
                 headerName: "ID",
-                width: 30,
+                width: 40,
                 editable: false,
                 valueGetter: "node.id"
             }, {
