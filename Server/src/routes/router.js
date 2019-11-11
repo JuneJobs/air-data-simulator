@@ -4,7 +4,7 @@
 const LlRequest = require("../lib/ISRequest"),
       config = require('../config/default.json'), 
       Redis = require("ioredis"),
-      redisCli = new Redis(config.redisPort, config.redisUrl); //Air Redis Node 연결
+      redisCli = new Redis(config.redisPort, config.redisUrl, {password: config.redisPassword}); //Air Redis Node 연결
 
 let resCode = {
     SUCCESS: 0,
