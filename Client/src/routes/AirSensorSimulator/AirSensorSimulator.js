@@ -313,7 +313,8 @@ class AirSensorSimulator extends Component {
                 "nsc": nsc,
                 "wmac": "",
                 "actf": 1,
-                "mobf":0
+                "mobf":0,
+                "userId": ""
             }
         }
         axios.defaults.baseURL = api_server;
