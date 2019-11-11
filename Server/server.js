@@ -36,7 +36,7 @@ function monitor() {
     console.log(`${childPool.length}개의 시뮬레이터 동작중`);
 }
 let make_simulator = (simulator_wmac, cb) => {
-    let ps = spawn('node', [`./Server/src/deamon/runner.js`, simulator_wmac]);
+    let ps = spawn('node', [`./Server/src/daemon/runner.js`, simulator_wmac]);
     ps.stdout.on('data', (data) => {
         data = '' + data;
         if(data.indexOf('ssn,') === 0) {
