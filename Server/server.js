@@ -37,6 +37,7 @@ function monitor() {
 }
 let make_simulator = (simulator_wmac, cb) => {
     let ps = spawn('node', [`./Server/src/daemon/runner.js`, simulator_wmac]);
+    console.log(`프로세스 실행`);
     ps.stdout.on('data', (data) => {
         data = '' + data;
         if(data.indexOf('ssn,') === 0) {
@@ -113,6 +114,7 @@ router.post('/s_simulator_control', (req, res) => {
     switch(req.body.operation) {
         case 'run':
             simulator_wmac = req.body.simulator_wmac;
+            console.log(`${req.body.simulator_wmac}: 시뮬레이터 셍성`);
             make_simulator(req.body.simulator_wmac, (result)=> {
                 console.log(`${childPool.length}개의 시뮬레이터 동작중`);
                 res.send({
@@ -123,6 +125,7 @@ router.post('/s_simulator_control', (req, res) => {
         case 'kill':
             kill_simulator(req.body.simulator_wmac, (result)=> {
                 if(result) {
+                    console.log(`시뮬레이터 중지`);
                     console.log(`${childPool.length}개의 시뮬레이터 동작중`);
                     console.log(`${req.body.simulator_wmac} was killed.`)
                     res.send({
