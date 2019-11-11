@@ -21,8 +21,8 @@ const generator = new codeGenerator();
 
 //axios.defaults.baseURL = 'http://intuseer.co.kr:8001';
 //axios.defaults.baseURL = 'http://somnium.me:1234';
-//const simulator_server = 'http://sv.somnium.me:60031';
-const simulator_server = 'http://localhost:60031';
+const simulator_server = 'http://sv.somnium.me:60031';
+//const simulator_server = 'http://localhost:60031';
 //const api_server = 'http://localhost:8001';
 //const simulator_server = 'http://sv.somnium.me:60031';
 const api_server = 'http://sv.somnium.me:60011';
