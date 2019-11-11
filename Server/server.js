@@ -41,13 +41,23 @@ let make_simulator = (simulator_wmac, cb) => {
         data = '' + data;
         if(data.indexOf('ssn,') === 0) {
             let ssn = data.split(',');
+            let not_xist_simulator = true;
             ssn[2] = Number(ssn[2].substring('\n'));
             childPool.find((simulator)=> {
                 if(simulator.simulator_wmac === ssn[1]) {
                     simulator.simulator_ssn = ssn[2];
+                    not_xist_simulator = false;
                     return;
                 }
             });
+            if(not_xist_simulator) {
+                childPool.push({
+                    simulator_wmac: simulator_wmac,
+                    simulator_ssn: 0,
+                    simulator_cid: 0,
+                    simulator: ps
+                });
+            }
         } 
         if (data.indexOf('cid,') === 0) {
             let cid = data.split(',');
@@ -56,8 +66,8 @@ let make_simulator = (simulator_wmac, cb) => {
                 if(simulator.simulator_wmac === cid[1]) {
                     simulator.simulator_cid = cid[2];
                     return;
-                }
-            })
+                } 
+            });
             cb(true);
         }
         if (data.indexOf('err,') === 0) {
@@ -79,13 +89,6 @@ let make_simulator = (simulator_wmac, cb) => {
         console.log('Failed to start child process.');
       }
     });
-    childPool.push({
-        simulator_wmac: simulator_wmac,
-        simulator_ssn: 0,
-        simulator_cid: 0,
-        simulator: ps
-    });
-
 }
 
 let kill_simulator = (simulator_wmac, cb) => {
