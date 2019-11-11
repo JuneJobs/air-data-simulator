@@ -1,6 +1,6 @@
 'use strict'
 const request = require('request'),
-      requestURL = 'http://sv.somnium.me:60011',
+      requestURL = 'http://localhost:60011',
       //requestURL = 'http://localhost:8001',
       fs = require('fs');
 // function intervalFunc() {

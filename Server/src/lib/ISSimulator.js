@@ -6,7 +6,7 @@ class ISSimulator {
     constructor() {
         this.wmac = '';
         this.cid = '';
-        this.air_api_url = 'http://sv.somnium.me:60011';
+        this.air_api_url = 'http://localhost:60011';
         this.simulator_url = 'http://localhost:60031';
     }
     /**
