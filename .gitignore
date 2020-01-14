@@ -63,3 +63,5 @@ typings/
 cheese.log*
 
 Client/build
+
+Server/src/config/default.json
