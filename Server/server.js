@@ -25,7 +25,7 @@ app.use("/", router);
 //Server runner
 app.listen(config.webServicePort, function () {
     console.log(`server running on ${config.webServicePort}`);
-    setInterval(monitor, 3600);
+    setInterval(monitor, 360000);
 });
 
 require('./src/routes/router');
