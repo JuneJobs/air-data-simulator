@@ -1,13 +1,14 @@
 'use strict'
 
 const request = require('request');
+const config = require('../config/default.json');
 
 class ISSimulator {
     constructor() {
         this.wmac = '';
         this.cid = '';
-        this.air_api_url = 'http://localhost:60011';
-        this.simulator_url = 'http://localhost:60031';
+        this.air_api_url = config.api_airoundu;
+        this.simulator_url = config.api_simulator;
     }
     /**
      * @title function conn
@@ -67,7 +68,7 @@ class ISSimulator {
             "queryType": "GET",
             "wmac": wmac
         };
-        this.conn(this.simulator_url, '/simulator', packedMsg, (response) => {
+        this.conn(this.simulator_url, '', packedMsg, (response) => {
             cb(response.gps);
         })
     }
@@ -157,7 +158,7 @@ class ISSimulator {
                 "wmac": wmac
             }
         };
-        this.conn(this.air_api_url, '/s_api_v1_0', params, (result) => {
+        this.conn(this.air_api_url, '', params, (result) => {
             cb(result);
         })
     };
@@ -170,7 +171,8 @@ class ISSimulator {
     */
     run_dynamic_connection_addition = (ssn, cb) => {
         this.get_gps(this.wmac, (gps) => {
-            let arrGps = gps.split(','),
+            if(gps !== undefined) {
+                let arrGps = gps.split(','),
                 lat = Number(arrGps[0]),
                 lng = Number(arrGps[1]),
                 params = {
@@ -184,9 +186,13 @@ class ISSimulator {
                         "lng": lng
                     }
                 }     
-            this.conn(this.air_api_url, '/s_api_v1_0', params, (result) => {
-                cb(result);
-            });      
+                this.conn(this.air_api_url, '', params, (result) => {
+                    cb(result);
+                }); 
+            } else {
+                cb(false);
+            }
+                 
         }); 
     };
     /**
@@ -205,7 +211,7 @@ class ISSimulator {
             "payload": {
             }
         }
-        this.conn(this.air_api_url, '/s_api_v1_0', params, (result) => {
+        this.conn(this.air_api_url, '', params, (result) => {
             cb(result);
         });
     };
@@ -230,7 +236,7 @@ class ISSimulator {
                 } 
             }
         }
-        this.conn(this.air_api_url, '/s_api_v1_0', params, (result) => {
+        this.conn(this.air_api_url, '', params, (result) => {
             let data = result;
             console.log('Transfer successed');
         });

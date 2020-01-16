@@ -2,3 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Air pollution data simulator
 The project is designed to automatically generate sensor data for the "Air-pollution" project.
+
+# Run
+## 1. Run Server
+

@@ -5,7 +5,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}/Server/server.js",
-            //"program": "${workspaceRoot}/Server/src/deamon/runner.js",
+            //"program": "${workspaceRoot}/Server/src/daemon/runner.js",
             //"${workspaceRoot}/server/businessLogic/historicalAirData.js",
             //"runtimeExecutable": "/Users/junheepark/.nvm/versions/node/v10.6.0/bin/node",
             "cwd": "${workspaceRoot}"
@@ -16,10 +16,6 @@
             "protocol": "auto",
             "name": "Config",
             "port": 5858
-        },
-        {
-            "type": "suck",
-            "request": "poop"
         }
     ]
 }

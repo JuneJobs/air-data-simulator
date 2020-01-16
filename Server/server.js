@@ -25,7 +25,7 @@ app.use("/", router);
 //Server runner
 app.listen(config.webServicePort, function () {
     console.log(`server running on ${config.webServicePort}`);
-    setInterval(monitor, 360000);
+    setInterval(monitor, 3600);
 });
 
 require('./src/routes/router');
@@ -36,8 +36,11 @@ function monitor() {
     console.log(`${childPool.length}개의 시뮬레이터 동작중`);
 }
 let make_simulator = (simulator_wmac, cb) => {
-    let ps = spawn('node', [`./src/daemon/runner.js`, simulator_wmac]);
+    let ps = spawn('node', [`./Server/src/daemon/runner.js`, simulator_wmac]);
     console.log(`프로세스 실행`);
+      ps.stderr.on('data', (data)=> {
+        console.log(data);
+      })
     ps.stdout.on('data', (data) => {
         console.log(data);
         data = '' + data;

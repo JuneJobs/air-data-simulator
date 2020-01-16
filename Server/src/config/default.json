@@ -7,5 +7,7 @@
     "databaseApiUrl": "http://db.intuseer.com:60011/d_api_v1_0",
     "redisUrl": "db.intuseer.com",
     "redisPort": 6379,
-    "redisPassword": "b9dbb3ec-cd3d-4550-8e93-c3db18027b9b"
+    "redisPassword": "b9dbb3ec-cd3d-4550-8e93-c3db18027b9b",
+    "api_airoundu": "http://api.intuseer.com:60011/s_api_v1_0",
+    "api_simulator": "http://localhost:60031/simulator"
 }
