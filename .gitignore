@@ -65,3 +65,5 @@ cheese.log*
 Client/build
 
 Server/src/config/dfcault.json
+
+Client/simulator
