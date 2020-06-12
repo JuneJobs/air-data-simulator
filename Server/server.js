@@ -7,7 +7,9 @@ const config = require('./src/config/default.json'),
       Simulator =require('./src/lib/ISSimulator'),
       spawn = require('child_process').spawn,
       cors = require('cors'),
-      simulator = new Simulator();
+      simulator = new Simulator(),
+      su = require('service_log'),
+      logger = new su(process.pid, 'air-data-simulator');
 
 //Import msg module
 global.app = express();
@@ -24,6 +26,7 @@ app.use("/", router);
 
 //Server runner
 app.listen(config.webServicePort, function () {
+    logger.start();
     console.log(`server running on ${config.webServicePort}`);
     setInterval(monitor, 360000);
 });
