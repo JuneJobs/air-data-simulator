@@ -86,7 +86,7 @@ class ISSimulator {
                 lat = Number(arrGps[0]),
                 lng = Number(arrGps[1]),
                 tuples = [[
-                    timestamp-2, 
+                    timestamp-10, 
                     this.get_generated_data(), // Temperature
                     this.get_generated_data(), // CO
                     this.get_generated_data(), // 03
@@ -103,22 +103,6 @@ class ISSimulator {
                     1, 
                     lat, 
                     lng
-                ], [
-                    timestamp-1, 
-                    this.get_generated_data(), // Temperature
-                    this.get_generated_data(), // CO
-                    this.get_generated_data(), // 03
-                    this.get_generated_data(), // NO2
-                    this.get_generated_data(), // SO2
-                    this.get_generated_data(), // PM2.5
-                    this.get_generated_data(), // PM10
-                    this.get_generated_data(), // CO AQI
-                    this.get_generated_data(), // 03 AQI
-                    this.get_generated_data(), // NO2 AQI
-                    this.get_generated_data(), // SO2 AQI
-                    this.get_generated_data(), // PM2.5 AQI
-                    this.get_generated_data(), // PM10 AQI
-                    0
                 ], [
                     timestamp, 
                     this.get_generated_data(), // Temperature
