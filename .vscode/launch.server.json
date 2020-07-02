@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceRoot}/Server/server.js",
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "protocol": "auto",
+            "name": "Config",
+            "port": 5858
+        }
+    ]
+}

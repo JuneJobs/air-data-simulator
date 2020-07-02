@@ -4,10 +4,10 @@
         "acceessDenied": 0
     },
     "webServicePort": 60031,
-    "databaseApiUrl": "http://localhost:60012/d_api_v1_1",
-    "redisUrl": "localhost",
+    "databaseApiUrl": "http://main.intuseer.com:60012/d_api_v1_1",
+    "redisUrl": "main.intuseer.com",
     "redisPort": 63793,
     "redisPassword": "b9dbb3ec-cd3d-4550-8e93-c3db18027b9b",
-    "api_airoundu": "http://localhost:60011/s_api_v1_1",
+    "api_airoundu": "http://main.intuseer.com:60011/s_api_v1_1",
     "api_simulator": "http://localhost:60031/simulator"
 }

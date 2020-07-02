@@ -1,4 +1,4 @@
 {
     "api_airoundu": "http://main.intuseer.com:60011",
-    "api_simulator": "http://main.intuseer.com:60031"
+    "api_simulator": "http://localhost:60031"
 }
