@@ -23,7 +23,7 @@ let runner = () => {
                     if(result.payload.resultCode === 0) {
                         cid = result.payload.cid;
                         simulator.cid = cid;
-                        timer = setInterval(simulator.realtime_air_data_transfer, 3000);
+                        timer = setInterval(simulator.realtime_air_data_transfer, 20000);
                     }
                 } else {
                     console.log(`err,not generated sensor`);
