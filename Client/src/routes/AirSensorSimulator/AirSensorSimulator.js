@@ -239,12 +239,12 @@ class AirSensorSimulator extends Component {
                 "endpointId": 5
             },
             "payload": {
-                "userId": "airoundu@gmail.com",
-                "userPw": "test123@"
+                "id": "airoundu@gmail.com",
+                "pw": "test123@"
             }
         };
         axios.defaults.baseURL = api_server;
-        let res = await axios.post("/s_api_v1_0", params, axiosConfig);
+        let res = await axios.post("/s_api_v1_1", params, axiosConfig);
         //res.data.payload
         let conn = {
             usn: res.data.payload.usn,
@@ -267,7 +267,7 @@ class AirSensorSimulator extends Component {
             }
         }
         axios.defaults.baseURL = api_server;
-        let res = await axios.post("/s_api_v1_0", params, axiosConfig);
+        let res = await axios.post("/s_api_v1_1", params, axiosConfig);
         cb(res.data.payload.resultCode);
 
     }
@@ -285,7 +285,7 @@ class AirSensorSimulator extends Component {
             }
         }
         axios.defaults.baseURL = api_server;
-        let res = await axios.post("/s_api_v1_0", params, axiosConfig);
+        let res = await axios.post("/s_api_v1_1", params, axiosConfig);
         cb(res.data.payload.resultCode);
     }
     run_sign_out = async(usn, nsc, cb) => {
@@ -300,7 +300,7 @@ class AirSensorSimulator extends Component {
             }
         }
         axios.defaults.baseURL = api_server;
-        let res = await axios.post("/s_api_v1_0", params, axiosConfig);
+        let res = await axios.post("/s_api_v1_1", params, axiosConfig);
         cb(res.data.payload.resultCode);
     }
     run_sensor_ist_view = async(usn, nsc, cb) => {
@@ -313,13 +313,13 @@ class AirSensorSimulator extends Component {
             "payload": {
                 "nsc": nsc,
                 "wmac": "",
-                "actf": 1,
-                "mobf":0,
-                "userId": ""
+                "actf": "",
+                "mobf":"",
+                "id": "airoundu@gmail.com"
             }
         }
         axios.defaults.baseURL = api_server;
-        let res = await axios.post("/s_api_v1_0", params, axiosConfig);
+        let res = await axios.post("/s_api_v1_1", params, axiosConfig);
         cb(res.data.payload.selectedSensorInfoListEncodings);
     }
     run_administrator_sensor_deregistration = async(usn, nsc, wmac, cb) => {
@@ -333,11 +333,11 @@ class AirSensorSimulator extends Component {
                 "nsc": nsc,
                 "wmac": wmac,
                 "drgcd": 2,
-                "userId":"airoundu@gmail.com"
+                "id":"airoundu@gmail.com"
             }
         }
         axios.defaults.baseURL = api_server;
-        let res = await axios.post("/s_api_v1_0", params, axiosConfig);
+        let res = await axios.post("/s_api_v1_1", params, axiosConfig);
         cb(res.data.payload.resultCode);
     }
     run_gps_add = async(wmac, cb) => {
