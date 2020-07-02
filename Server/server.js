@@ -39,7 +39,7 @@ function monitor() {
     console.log(`${childPool.length}개의 시뮬레이터 동작중`);
 }
 let make_simulator = (simulator_wmac, cb) => {
-    let ps = spawn('node', [`./Server/src/daemon/runner.js`, simulator_wmac]);
+    let ps = spawn('node', [`./src/daemon/runner.js`, simulator_wmac]);
     console.log(`프로세스 실행`);
       ps.stderr.on('data', (data)=> {
         console.log(data);
