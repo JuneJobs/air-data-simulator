@@ -39,14 +39,14 @@ function monitor() {
     console.log(`${childPool.length}개의 시뮬레이터 동작중`);
 }
 let make_simulator = (simulator_wmac, cb) => {
-    let ps = spawn('node', [`./src/daemon/runner.js`, simulator_wmac]);
+    let ps = spawn('node', [`./Server/src/daemon/runner.js`, simulator_wmac]);
     console.log(`프로세스 실행`);
       ps.stderr.on('data', (data)=> {
         console.log(data);
       })
     ps.stdout.on('data', (data) => {
-        console.log(data);
         data = '' + data;
+        console.log(data);
         if(data.indexOf('ssn,') === 0) {
             let ssn = data.split(',');
             let not_xist_simulator = true;
@@ -100,18 +100,19 @@ let make_simulator = (simulator_wmac, cb) => {
 }
 
 let kill_simulator = (simulator_wmac, cb) => {
-    let result = false,
-        idx = -1;
+    let idx = -1;
     childPool.some((obj_simulator, index) => {
         if(obj_simulator.simulator_wmac === simulator_wmac) {
-            simulator.run_dynamic_connection_deletion(obj_simulator.simulator_cid, (reslut)=> {
-                result = true;
-                idx =index;
-                obj_simulator.simulator.kill('SIGUSR2');
-                childPool.splice(idx, 1);
+            simulator.run_dynamic_connection_deletion(obj_simulator.simulator_cid, (result)=> {
+                if(result === true) {
+                    idx =index;
+                    obj_simulator.simulator.kill('SIGUSR2');
+                    childPool.splice(idx, 1);
+                    cb(obj_simulator.simulator_wmac == simulator_wmac);
+                } else {
+                    cb(false);
+                }
             });
-            cb(obj_simulator.simulator_wmac == simulator_wmac);
-            return;
         }
     });
 }
