@@ -52,9 +52,9 @@ class ISSimulator {
      * @parameter null
      * @returns null 
     */
-    realtime_air_data_transfer = () => {
+    realtime_air_data_transfer = (cid) => {
         this.get_generated_tuples((tuples)=>{
-            this.run_realtime_airquality_data_transfer(tuples);
+            this.run_realtime_airquality_data_transfer(cid, tuples);
         });
     }
     /**
@@ -205,12 +205,12 @@ class ISSimulator {
      * @parameter data_tuples: Generated air data tuples
      * @returns response (SSP: RAD-ACK)
     */
-    run_realtime_airquality_data_transfer = (data_tuples) => {
+    run_realtime_airquality_data_transfer = (cid, data_tuples) => {
         let params = {
             "header": {
                 "msgType": 7,
                 "msgLen": 0,
-                "endpointId": this.cid
+                "endpointId": cid
             },
             "payload": {
                 "listEncodingType": 1,

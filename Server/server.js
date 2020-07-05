@@ -100,21 +100,37 @@ let make_simulator = (simulator_wmac, cb) => {
 }
 
 let kill_simulator = (simulator_wmac, cb) => {
-    let idx = -1;
-    childPool.some((obj_simulator, index) => {
-        if(obj_simulator.simulator_wmac === simulator_wmac) {
-            simulator.run_dynamic_connection_deletion(obj_simulator.simulator_cid, (result)=> {
-                if(result === true) {
-                    idx =index;
+    // let idx = -1;
+    // childPool.some((obj_simulator, index) => {
+    //     if(obj_simulator.simulator_wmac === simulator_wmac) {
+    //         simulator.run_dynamic_connection_deletion(obj_simulator.simulator_cid, (result)=> {
+    //             if(result === true) {
+    //                 idx =index;
+    //                 obj_simulator.simulator.kill('SIGUSR2');
+    //                 childPool.splice(idx, 1);
+    //                 cb(obj_simulator.simulator_wmac == simulator_wmac);
+    //             } else {
+    //                 cb(false);
+    //             }
+    //         });
+    //     }
+    // });
+    for (let i = 0, len = childPool.length; i < len; i++) {
+        if(childPool[i].simulator_wmac === simulator_wmac) {
+            let obj_simulator = childPool[i];
+             simulator.run_dynamic_connection_deletion(obj_simulator.simulator_cid, (result)=> {
+                if(result.payload.resultCode === 0) {
+                    console.log("dcd success.");
+                    childPool.splice(i, 1);
                     obj_simulator.simulator.kill('SIGUSR2');
-                    childPool.splice(idx, 1);
-                    cb(obj_simulator.simulator_wmac == simulator_wmac);
+                    cb(true);
                 } else {
+                    console.log("dcd failed.");
                     cb(false);
                 }
             });
         }
-    });
+    }
 }
 
 router.post('/s_simulator_control', (req, res) => {

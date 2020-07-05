@@ -17,13 +17,13 @@ let runner = () => {
             console.log(`ssn,${wmac},${result.payload.ssn}`);
             //connectionID 발급
             let ssn = result.payload.ssn;
-            simulator.run_dynamic_connection_addition(ssn, (result)=> {
+            simulator.run_dynamic_connection_addition(ssn[0], (result)=> {
                 if(result !== false) {
                     console.log(`cid,${wmac},${result.payload.cid}`);
                     if(result.payload.resultCode === 0) {
                         cid = result.payload.cid;
                         simulator.cid = cid;
-                        timer = setInterval(simulator.realtime_air_data_transfer, 20000);
+                        timer = setInterval(simulator.realtime_air_data_transfer.bind(this, cid), 20000);
                     }
                 } else {
                     console.log(`err,not generated sensor`);
