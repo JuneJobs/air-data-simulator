@@ -17,7 +17,7 @@ let runner = () => {
             console.log(`ssn,${wmac},${result.payload.ssn}`);
             //connectionID 발급
             let ssn = result.payload.ssn;
-            simulator.run_dynamic_connection_addition(ssn[0], (result)=> {
+            simulator.run_dynamic_connection_addition(ssn, (result)=> {
                 if(result !== false) {
                     console.log(`cid,${wmac},${result.payload.cid}`);
                     if(result.payload.resultCode === 0) {
